@@ -139,13 +139,6 @@ namespace vsmap
         if (err)
         {
             result.assign(defaultValue.begin(), defaultValue.end());
-            //result.insert(result.end(), defaultValue.begin(), defaultValue.end());
-            /*
-            for (size_t i = 0; i < defaultValue.size(); ++i)
-            {
-                result.push_back(defaultValue[i]);
-            }
-            */
             return result;
         }
 
