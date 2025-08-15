@@ -153,8 +153,15 @@ bool CrossFade::writeFrameChannel(int ch, VSFrame* outFrm, int64_t outPosFrmStar
         else if (outPosFadeEnd <= outPos)
         {
             // only audio2
+#ifndef NDEBUG
+            // only for debug builds
             assertm(a2FrmLPtr, "a2FrmLPtr null");
-            assertm(a2FrmRPtr, "a2FrmRPtr null");
+
+            if (audio2FrameSampleOffsets.right != 0)
+            {
+                assertm(a2FrmRPtr, "a2FrmRPtr null");
+            }
+#endif
 
             sample_t a2Sample = common::getOffsetSample(s, audio2FrameSampleOffsets, a2FrmLPtr, a2FrmRPtr);
 
@@ -174,9 +181,16 @@ bool CrossFade::writeFrameChannel(int ch, VSFrame* outFrm, int64_t outPosFrmStar
         {
             // assert: outPosFadeStart <= outPos && outPos < outPosFadeEnd
             // crossfade sample
+#ifndef NDEBUG
+            // only for debug builds
             assertm(a1FrmPtr, "a1FrmPtr null");
             assertm(a2FrmLPtr, "a2FrmLPtr null");
-            assertm(a2FrmRPtr, "a2FrmRPtr null");
+
+            if (audio2FrameSampleOffsets.right != 0)
+            {
+                assertm(a2FrmRPtr, "a2FrmRPtr null");
+            }
+#endif
 
             sample_t a1Sample = a1FrmPtr[s];
             sample_t a2Sample = common::getOffsetSample(s, audio2FrameSampleOffsets, a2FrmLPtr, a2FrmRPtr);

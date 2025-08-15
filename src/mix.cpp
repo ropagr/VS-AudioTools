@@ -285,6 +285,16 @@ bool Mix::writeFrameChannel(int ch, VSFrame* outFrm, int64_t outPosFrmStart, int
         if (outPosAudio1TrimStart <= outPos && outPos < outPosAudio1TrimEnd)
         {
             // audio1
+#ifndef NDEBUG
+            // only for debug builds
+            assertm(a1FrmLPtr, "a1FrmLPtr null");
+
+            if (audio1FrameSampleOffsets.right != 0)
+            {
+                assertm(a1FrmRPtr, "a1FrmRPtr null");
+            }
+#endif
+
             sample_t audio1Sample = common::getOffsetSample(s, audio1FrameSampleOffsets, a1FrmLPtr, a1FrmRPtr);
             if constexpr (bitShift.required)
             {
@@ -294,6 +304,16 @@ bool Mix::writeFrameChannel(int ch, VSFrame* outFrm, int64_t outPosFrmStart, int
             if (audio2Enabled && outPosAudio2TrimStart <= outPos && outPos < outPosAudio2TrimEnd)
             {
                 // mix audio1 and audio2
+#ifndef NDEBUG
+                // only for debug builds
+                assertm(a2FrmLPtr, "a2FrmLPtr null");
+
+                if (audio2FrameSampleOffsets.right != 0)
+                {
+                    assertm(a2FrmRPtr, "a2FrmRPtr null");
+                }
+#endif
+
                 sample_t audio2Sample = common::getOffsetSample(s, audio2FrameSampleOffsets, a2FrmLPtr, a2FrmRPtr);
                 if constexpr (bitShift.required)
                 {
@@ -360,6 +380,16 @@ bool Mix::writeFrameChannel(int ch, VSFrame* outFrm, int64_t outPosFrmStart, int
                 if (outPosAudio2TrimStart <= outPos && outPos < outPosAudio2TrimEnd)
                 {
                     // only audio2
+#ifndef NDEBUG
+                // only for debug builds
+                assertm(a2FrmLPtr, "a2FrmLPtr null");
+
+                if (audio2FrameSampleOffsets.right != 0)
+                {
+                    assertm(a2FrmRPtr, "a2FrmRPtr null");
+                }
+#endif
+
                     sample_t audio2Sample = common::getOffsetSample(s, audio2FrameSampleOffsets, a2FrmLPtr, a2FrmRPtr);
                     if constexpr (bitShift.required)
                     {

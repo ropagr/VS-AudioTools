@@ -127,8 +127,15 @@ bool Delay::writeFrameChannel(int ch, VSFrame* outFrm, int64_t outPosFrmStart, i
         }
         else
         {
+#ifndef NDEBUG
+            // only for debug builds
             assertm(offsetInFrmLPtr, "offsetInFrmLPtr null");
-            assertm(offsetInFrmRPtr, "offsetInFrmRPtr null");
+
+            if (audioFrameSampleOffsets.right != 0)
+            {
+                assertm(offsetInFrmRPtr, "offsetInFrmRPtr null");
+            }
+#endif
 
             sample_t inSample = common::getOffsetSample(s, audioFrameSampleOffsets, offsetInFrmLPtr, offsetInFrmRPtr);
 
