@@ -521,19 +521,11 @@ static const VSFrame* VS_CC mixGetFrame(int outFrmNum, int activationReason, voi
         if (0 <= a2FrmNums.left)
         {
             a2FrmL = vsapi->getFrameFilter(a2FrmNums.left, data->getAudio2(), frameCtx);
-            if (!propFrm)
-            {
-                propFrm = a2FrmL;
-            }
         }
 
         if (0 <= a2FrmNums.right)
         {
             a2FrmR = vsapi->getFrameFilter(a2FrmNums.right, data->getAudio2(), frameCtx);
-            if (!propFrm)
-            {
-                propFrm = a2FrmR;
-            }
         }
 
         int outFrmLen = vsutils::getFrameSampleCount(outFrmNum, data->getOutInfo().numSamples);
