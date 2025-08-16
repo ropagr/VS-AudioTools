@@ -381,13 +381,13 @@ bool Mix::writeFrameChannel(int ch, VSFrame* outFrm, int64_t outPosFrmStart, int
                 {
                     // only audio2
 #ifndef NDEBUG
-                // only for debug builds
-                assertm(a2FrmLPtr, "a2FrmLPtr null");
+                    // only for debug builds
+                    assertm(a2FrmLPtr, "a2FrmLPtr null");
 
-                if (audio2FrameSampleOffsets.right != 0)
-                {
-                    assertm(a2FrmRPtr, "a2FrmRPtr null");
-                }
+                    if (audio2FrameSampleOffsets.right != 0)
+                    {
+                        assertm(a2FrmRPtr, "a2FrmRPtr null");
+                    }
 #endif
 
                     sample_t audio2Sample = common::getOffsetSample(s, audio2FrameSampleOffsets, a2FrmLPtr, a2FrmRPtr);
