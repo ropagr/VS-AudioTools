@@ -71,7 +71,7 @@ atools.Crossfade(clip1: vs.AudioNode,
 *type* - fade transition type
 ```text
     'linear' - linear transition
-    'cubic'  - cubic transition
+    'cubic'  - cubic transition (Cubic Hermite spline)
     'sine'   - sine transition
 ```
 
@@ -140,7 +140,7 @@ atools.FadeIn(clip: vs.AudioNode,
 *type* - fade transition type
 ```text
     'linear' - linear transition
-    'cubic'  - cubic transition
+    'cubic'  - cubic transition (Cubic Hermite spline)
     'sine'   - sine transition
 ```
 
@@ -181,7 +181,7 @@ atools.FadeOut(clip: vs.AudioNode,
 *type* - fade transition type
 ```text
     'linear' - linear transition
-    'cubic'  - cubic transition
+    'cubic'  - cubic transition (Cubic Hermite spline)
     'sine'   - sine transition
 ```
 
@@ -214,7 +214,7 @@ atools.FindPeak(clip: vs.AudioNode,
 
 ## Mix
 
-Mix two audio clips together. Optionally fade in / fade out clip2 respectively clip1 depending on the offset of clip2.  
+Mix two audio clips together. Optionally fade in / fade out clip2 respectively clip1 depending on the offset of clip2 and extend_start / extend_end.  
 This is a convenience function and can also be achieved with existing functions and scripting.
 
 **Note**: This function is prone to overflowing. Please see the section about how to [handle overflows](#overflow-handling).
@@ -259,27 +259,27 @@ e.g. if clip1_gain is 1 and clip2_gain is 4 then the absolute gain for clip1 wil
 this can be used to prevent overflowing, but should not be used if you want to call Mix more than once, because it lowers the overall volume every time you call Mix;  
 default: False
 
-*fadein_samples* - fade in length in samples
+*fadein_samples* - fade in length in samples; fade in clip2 if clip2 starts after clip1, otherwise clip1
 
-*fadein_seconds* - fade in length in seconds
+*fadein_seconds* - fade in length in seconds; fade in clip2 if clip2 starts after clip1, otherwise clip1
 
-*fadeout_samples* - fade out length in samples
+*fadeout_samples* - fade out length in samples; fade out clip2 if clip2 ends before clip1, otherwise clip1
 
-*fadeout_seconds* - fade out length in seconds
+*fadeout_seconds* - fade out length in seconds; fade out clip2 if clip2 ends before clip1, otherwise clip1
 
 *fade_type* - fade transition type
 ```text
     'linear' - linear transition
-    'cubic'  - cubic transition
+    'cubic'  - cubic transition (Cubic Hermite spline)
     'sine'   - sine transition
 ```
 
 *extend_start* - if the start of clip2 is outside of clip1 (negative clip2_offset) you can choose
-                 to extend the start of clip1 to cover the beginning of clip2, which increases
+                 to extend the start of clip1 to match the start of clip2, which increases
                  the output length; default: False
 
 *extend_end* - if the end of clip2 is outside of clip1 you can choose to extend the end of clip1
-               to cover the end of clip2, which increases the output length; default: False
+               to match the end of clip2, which increases the output length; default: False
 
 *channels* - list of channels of clip2 to mix in; default: None (all channels)
 
