@@ -69,38 +69,52 @@ target_compile_features(AudioTools PRIVATE cxx_std_20)
 
 target_link_libraries(AudioTools)
 
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    if (CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "MSVC")
+        set(IS_CLANG_GCC OFF)
+        set(IS_CLANG_MSVC ON)
+    elseif (CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "GNU")
+        set(IS_CLANG_GCC ON)
+        set(IS_CLANG_MSVC OFF)
+    endif()
+endif()
+
+
 target_compile_options(AudioTools
     PRIVATE
-        # Debug flags for GNU C++
-        $<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:CXX,GNU>>:
-            -g -O0 -Wall -Wextra -Wpedantic -Wno-unused-parameter -Wno-unused-variable
-        >
+        # C++ debug flags for GCC and Clang (GCC-style)
+        $<$<AND:$<CONFIG:Debug>,$<COMPILE_LANGUAGE:CXX>,$<OR:$<CXX_COMPILER_ID:GNU>,$<BOOL:${IS_CLANG_GCC}>>>:
+            -g -O0 -Wall -Wextra -Wpedantic -Wno-unused-parameter -Wno-unused-variable>
 
-        # Release flags for GNU C++
-        $<$<AND:$<CONFIG:Release>,$<COMPILE_LANG_AND_ID:CXX,GNU>>:
-            -O2 -Wall -Wextra -Wpedantic -Wno-unused-parameter -Wno-unused-variable
-        >
+        # C++ release flags for GCC and Clang (GCC-style)
+        $<$<AND:$<CONFIG:Release>,$<COMPILE_LANGUAGE:CXX>,$<OR:$<CXX_COMPILER_ID:GNU>,$<BOOL:${IS_CLANG_GCC}>>>:
+            -O2 -Wall -Wextra -Wpedantic -Wno-unused-parameter -Wno-unused-variable>
 
-        # Debug flags for MSVC C++
-        $<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:
-            /MDd /W4 /Zi /wd4100 /wd4702 /Zc:__cplusplus
-        >
+        # C++ debug flags for MSVC and Clang (MSVC-style)
+        $<$<AND:$<CONFIG:Debug>,$<COMPILE_LANGUAGE:CXX>,$<OR:$<CXX_COMPILER_ID:MSVC>,$<BOOL:${IS_CLANG_MSVC}>>>:
+            /W4 /wd4100 /wd4702 /Zc:__cplusplus>
 
-        # Release flags for MSVC C++
-        $<$<AND:$<CONFIG:Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:
-            /MD /O2 /W4 /wd4100 /wd4702 /Zc:__cplusplus
-        >
+        # C++ release flags for MSVC and Clang (MSVC-style)
+        $<$<AND:$<CONFIG:Release>,$<COMPILE_LANGUAGE:CXX>,$<OR:$<CXX_COMPILER_ID:MSVC>,$<BOOL:${IS_CLANG_MSVC}>>>:
+            /W4 /wd4100 /wd4702 /Zc:__cplusplus>
 )
 
 
 if (WIN32)
     target_link_options(AudioTools
-        PRIVATE $<$<LINK_LANG_AND_ID:CXX,GNU>:-fPIC -static -static-libgcc -static-libstdc++ -s>
+        PRIVATE
+            # C++ flags for GCC and Clang (GCC-style) on Windows
+            $<$<AND:$<LINK_LANGUAGE:CXX>,$<OR:$<CXX_COMPILER_ID:GNU>,$<BOOL:${IS_CLANG_GCC}>>>:
+                -static -static-libstdc++ -s>
     )
 else()
     target_link_options(AudioTools
-        PRIVATE $<$<LINK_LANG_AND_ID:CXX,GNU>:-s>
+        PRIVATE
+            # C++ flags for GCC on non-Windows systems
+            $<$<LINK_LANG_AND_ID:CXX,GNU>:-s>
     )
 endif()
+
 
 set_target_properties(AudioTools PROPERTIES PREFIX "")
