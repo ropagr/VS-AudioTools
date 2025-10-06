@@ -7,6 +7,7 @@
 #include <cstring>
 #include <format>
 #include <limits>
+#include <optional>
 #include <string>
 #include <type_traits>
 
