@@ -164,7 +164,7 @@ bool Delay::writeFrameImpl(VSFrame* outFrm, int outFrmNum, const VSFrame* inFrm,
     // copy channels
     for (const int& ch : copyChannels)
     {
-        vsutils::copyFrameChannel(ch, outFrm, inFrm, getOutInfo().format.bytesPerSample, ofCtx.vsapi);
+        vsutils::copyFrameChannel(outFrm, ch, inFrm, ch, getOutInfo().format.bytesPerSample, ofCtx.vsapi);
     }
 
     // edit channels

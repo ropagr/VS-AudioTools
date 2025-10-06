@@ -142,7 +142,7 @@ bool Fade::writeFrameImpl(VSFrame* outFrm, int outFrmNum, const VSFrame* inFrm, 
     // copy channels
     for (const int& ch : copyChannels)
     {
-        vsutils::copyFrameChannel(ch, outFrm, inFrm, bytesPerSample, ofCtx.vsapi);
+        vsutils::copyFrameChannel(outFrm, ch, inFrm, ch, bytesPerSample, ofCtx.vsapi);
     }
 
     // edit channels

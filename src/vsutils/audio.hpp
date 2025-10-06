@@ -30,7 +30,7 @@ namespace vsutils
 
     int sampleToFrame(int64_t sample);
 
-    void copyFrameChannel(int channel, VSFrame* outFrm, const VSFrame* inFrm, int bytesPerSample, const VSAPI* vsapi);
+    void copyFrameChannel(VSFrame* outFrame, int outChannel, const VSFrame* inFrame, int inChannel, int bytesPerSample, const VSAPI* vsapi);
 
     std::vector<int> getChannelsFromChannelLayout(uint64_t channelLayout);
 

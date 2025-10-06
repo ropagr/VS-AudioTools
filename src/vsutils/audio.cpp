@@ -107,13 +107,24 @@ namespace vsutils
         return static_cast<int>(frame);
     }
 
-
+/*
     void copyFrameChannel(int channel, VSFrame* outFrame, const VSFrame* inFrame, int bytesPerSample, const VSAPI* vsapi)
     {
         int numSamples = vsapi->getFrameLength(outFrame);
 
         const uint8_t* inFramePtr = vsapi->getReadPtr(inFrame, channel);
         uint8_t* outFramePtr = vsapi->getWritePtr(outFrame, channel);
+
+        std::memcpy(&outFramePtr[0], &inFramePtr[0], numSamples * bytesPerSample);
+    }
+*/
+
+    void copyFrameChannel(VSFrame* outFrame, int outChannel, const VSFrame* inFrame, int inChannel, int bytesPerSample, const VSAPI* vsapi)
+    {
+        int numSamples = vsapi->getFrameLength(outFrame);
+
+        const uint8_t* inFramePtr = vsapi->getReadPtr(inFrame, inChannel);
+        uint8_t* outFramePtr = vsapi->getWritePtr(outFrame, outChannel);
 
         std::memcpy(&outFramePtr[0], &inFramePtr[0], numSamples * bytesPerSample);
     }
