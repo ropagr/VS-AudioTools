@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <algorithm>
+#include <concepts>
 #include <vector>
 
 namespace utils
