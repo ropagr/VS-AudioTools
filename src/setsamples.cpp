@@ -313,6 +313,6 @@ void setsamplesInit(VSPlugin* plugin, const VSPLUGINAPI* vspapi)
                              "channels:int[]:opt;"
                              "overflow:data:opt;"
                              "overflow_log:data:opt;",
-                             "return:anode;",
+                             "clip:anode;",
                              setsamplesCreate, nullptr, plugin);
 }

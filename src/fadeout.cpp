@@ -127,6 +127,6 @@ void fadeoutInit(VSPlugin* plugin, const VSPLUGINAPI* vspapi)
                              "type:data:opt;"
                              "overflow:data:opt;"
                              "overflow_log:data:opt;",
-                             "return:anode;",
+                             "clip:anode;",
                              fadeoutCreate, nullptr, plugin);
 }

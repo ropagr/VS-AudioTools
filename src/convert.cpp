@@ -389,6 +389,6 @@ void convertInit(VSPlugin* plugin, const VSPLUGINAPI* vspapi)
                              "sample_type:data;"
                              "overflow:data:opt;"
                              "overflow_log:data:opt;",
-                             "return:anode;",
+                             "clip:anode;",
                              convertCreate, nullptr, plugin);
 }

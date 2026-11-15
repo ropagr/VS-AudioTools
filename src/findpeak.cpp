@@ -55,7 +55,7 @@ static void VS_CC findpeakCreate(const VSMap* in, VSMap* out, void* userData, VS
     double peak = common::findPeak(audio, audioInfo, optChannels.value(), normalize, vsapi);
     vsapi->freeNode(audio);
 
-    vsapi->mapSetFloat(out, "return", peak, VSMapAppendMode::maReplace);
+    vsapi->mapSetFloat(out, "result", peak, VSMapAppendMode::maReplace);
 }
 
 
@@ -65,6 +65,6 @@ void findpeakInit(VSPlugin* plugin, const VSPLUGINAPI* vspapi)
                              "clip:anode;"
                              "normalize:int:opt;"
                              "channels:int[]:opt;",
-                             "return:float;",
+                             "result:float;",
                              findpeakCreate, nullptr, plugin);
 }
