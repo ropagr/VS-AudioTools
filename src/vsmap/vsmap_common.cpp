@@ -13,6 +13,7 @@
 #include "common/overflow.hpp"
 #include "common/sampletype.hpp"
 #include "common/transition.hpp"
+#include "utils/debug.hpp"
 #include "utils/string.hpp"
 #include "vsmap/vsmap.hpp"
 #include "vsmap/vsmap_common.hpp"
@@ -51,9 +52,11 @@ namespace vsmap
 
         for (const int& ch : channels)
         {
+            assertm(0 <= ch, "negative audio channel index");
+
             if (static_cast<int>(VSAudioChannels::acFrontLeft) <= ch && ch <= static_cast<int>(acLowFrequency2))
             {
-                result.set(ch);
+                result.set(static_cast<size_t>(ch));
             }
         }
         return result.to_ullong();

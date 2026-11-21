@@ -121,12 +121,16 @@ namespace vsutils
 
     void copyFrameChannel(VSFrame* outFrame, int outChannel, const VSFrame* inFrame, int inChannel, int bytesPerSample, const VSAPI* vsapi)
     {
+        assertm(0 <= bytesPerSample, "negative bytes per sample");
+
         int numSamples = vsapi->getFrameLength(outFrame);
+
+        assertm(0 <= numSamples, "negative sample count");
 
         const uint8_t* inFramePtr = vsapi->getReadPtr(inFrame, inChannel);
         uint8_t* outFramePtr = vsapi->getWritePtr(outFrame, outChannel);
 
-        std::memcpy(&outFramePtr[0], &inFramePtr[0], numSamples * bytesPerSample);
+        std::memcpy(&outFramePtr[0], &inFramePtr[0], static_cast<size_t>(numSamples * bytesPerSample));
     }
 
 
@@ -138,7 +142,9 @@ namespace vsutils
 
         for (int i = static_cast<int>(VSAudioChannels::acFrontLeft); i <= static_cast<int>(VSAudioChannels::acLowFrequency2) && i < 64; ++i)
         {
-            if (chBits[i])
+            assertm(0 <= i, "negative audio channel index");
+
+            if (chBits[static_cast<size_t>(i)])
             {
                 result.push_back(i);
             }

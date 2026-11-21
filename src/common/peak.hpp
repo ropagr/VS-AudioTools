@@ -122,7 +122,7 @@ namespace common
                 {
                     sample_t sample = frmPtr_sample_t[s];
 
-                    if (std::abs(peak) < std::abs(sample))
+                    if (std::abs(peak) < static_cast<double>(std::abs(sample)))
                     {
                         peak = sample;
                     }
