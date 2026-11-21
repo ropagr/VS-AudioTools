@@ -25,7 +25,7 @@ Convert the sample type.
 atools.Convert(clip: vs.AudioNode,
                sample_type: str,
                overflow: str = 'error',
-               overflow_log: str = 'once'
+               overflow_log: str = 'once',
                ) -> vs.AudioNode
 ```
 
@@ -39,9 +39,9 @@ atools.Convert(clip: vs.AudioNode,
     'f32' - float   32-bit
 ```
 
-*overflow* - sample overflow handling; default: 'error' - see [explanation below](#overflow-handling)
+*overflow* - sample overflow handling; default: `'error'` - see [explanation below](#overflow-handling)
 
-*overflow_log* - sample overflow logging; default: 'once' - see [explanation below](#overflow-handling)
+*overflow_log* - sample overflow logging; default: `'once'` - see [explanation below](#overflow-handling)
 
 
 ## Crossfade
@@ -56,7 +56,7 @@ atools.Crossfade(clip1: vs.AudioNode,
                  seconds: float = 0.0,
                  type: str = 'cubic',
                  overflow: str = 'error',
-                 overflow_log: str = 'once'
+                 overflow_log: str = 'once',
                  ) -> vs.AudioNode
 ```
 
@@ -75,9 +75,9 @@ atools.Crossfade(clip1: vs.AudioNode,
     'sine'   - sine transition
 ```
 
-*overflow* - sample overflow handling; default: 'error' - see [explanation below](#overflow-handling)
+*overflow* - sample overflow handling; default: `'error'` - see [explanation below](#overflow-handling)
 
-*overflow_log* - sample overflow logging; default: 'once' - see [explanation below](#overflow-handling)
+*overflow_log* - sample overflow logging; default: `'once'` - see [explanation below](#overflow-handling)
 
 
 ## Delay
@@ -89,9 +89,9 @@ This effect could be also achieved with scripting.
 atools.Delay(clip: vs.AudioNode,
              samples: int = 0,
              seconds: float = 0.0,
-             channels: list[int] = None,
+             channels: list[int] | None = None,
              overflow: str = 'error',
-             overflow_log: str = 'once'
+             overflow_log: str = 'once',
              ) -> vs.AudioNode
 ```
 
@@ -101,11 +101,11 @@ atools.Delay(clip: vs.AudioNode,
 
 *seconds* - delay length in seconds
 
-*channels* - list of channels to delay; default: None (all channels)
+*channels* - list of channels to delay; default: `None` (all channels)
 
-*overflow* - sample overflow handling; default: 'error' - see [explanation below](#overflow-handling)
+*overflow* - sample overflow handling; default: `'error'` - see [explanation below](#overflow-handling)
 
-*overflow_log* - sample overflow logging; default: 'once' - see [explanation below](#overflow-handling)
+*overflow_log* - sample overflow logging; default: `'once'` - see [explanation below](#overflow-handling)
 
 
 ## FadeIn
@@ -118,10 +118,10 @@ atools.FadeIn(clip: vs.AudioNode,
               seconds: float = 0.0,
               start_sample: int = 0,
               start_second: float = 0.0,
-              channels: list[int] = None,
+              channels: list[int] | None = None,
               type: str = 'cubic',
               overflow: str = 'error',
-              overflow_log: str = 'once'
+              overflow_log: str = 'once',
               ) -> vs.AudioNode
 ```
 
@@ -135,7 +135,7 @@ atools.FadeIn(clip: vs.AudioNode,
 
 *start_second* - second to start fading in
 
-*channels* - list of channels to fade in; default: None (all channels)
+*channels* - list of channels to fade in; default: `None` (all channels)
 
 *type* - fade transition type
 ```text
@@ -144,9 +144,9 @@ atools.FadeIn(clip: vs.AudioNode,
     'sine'   - sine transition
 ```
 
-*overflow* - sample overflow handling; default: 'error' - see [explanation below](#overflow-handling)
+*overflow* - sample overflow handling; default: `'error'` - see [explanation below](#overflow-handling)
 
-*overflow_log* - sample overflow logging; default: 'once' - see [explanation below](#overflow-handling)
+*overflow_log* - sample overflow logging; default: `'once'` - see [explanation below](#overflow-handling)
 
 
 ## FadeOut
@@ -159,10 +159,10 @@ atools.FadeOut(clip: vs.AudioNode,
                seconds: float = 0.0,
                end_sample: int = len(clip),
                end_second: float = to_seconds(len(clip)),
-               channels: list[int] = None,
+               channels: list[int] | None = None,
                type: str = 'cubic',
                overflow: str = 'error',
-               overflow_log: str = 'once'
+               overflow_log: str = 'once',
                ) -> vs.AudioNode
 ```
 
@@ -176,7 +176,7 @@ atools.FadeOut(clip: vs.AudioNode,
 
 *end_second* - second to end fading out (exclusive!)
 
-*channels* - list of channels to fade out; default: None (all channels)
+*channels* - list of channels to fade out; default: `None` (all channels)
 
 *type* - fade transition type
 ```text
@@ -185,14 +185,14 @@ atools.FadeOut(clip: vs.AudioNode,
     'sine'   - sine transition
 ```
 
-*overflow* - sample overflow handling; default: 'error' - see [explanation below](#overflow-handling)
+*overflow* - sample overflow handling; default: `'error'` - see [explanation below](#overflow-handling)
 
-*overflow_log* - sample overflow logging; default: 'once' - see [explanation below](#overflow-handling)
+*overflow_log* - sample overflow logging; default: `'once'` - see [explanation below](#overflow-handling)
 
 
 ## FindPeak
 
-Return the peak value of all audio samples. This function is not an audio filter.
+Return the peak value of all audio samples. This function is *not* an audio filter.
 
 **Note**: Calling this function will read all audio frames in advance, which is a blocking process
           and can take a while to complete depending on the audio length.
@@ -200,16 +200,16 @@ Return the peak value of all audio samples. This function is not an audio filter
 ```python
 atools.FindPeak(clip: vs.AudioNode,
                 normalize: bool = True,
-                channels: list[int] = None
+                channels: list[int] | None = None,
                 ) -> float
 ```
 
 *clip* - input audio clip
 
-*normalize* - if True returns a normalized peak value between 0 and 1,  
-              otherwise returns the exact peak sample value; default: True
+*normalize* - if `True` returns a normalized peak value between 0 and 1,  
+              otherwise returns the exact peak sample value; default: `True`
 
-*channels* - list of channels to read; default: None (all channels)
+*channels* - list of channels to read; default: `None` (all channels)
 
 
 ## Mix
@@ -234,9 +234,9 @@ atools.Mix(clip1: vs.AudioNode,
            fade_type: str = 'cubic',
            extend_start: bool = False,
            extend_end: bool = False,
-           channels: list[int] = None,
+           channels: list[int] | None = None,
            overflow: str = 'error',
-           overflow_log: str = 'once'
+           overflow_log: str = 'once',
            ) -> vs.AudioNode
 ```
 
@@ -281,11 +281,11 @@ default: False
 *extend_end* - if the end of clip2 is outside of clip1 you can choose to extend the end of clip1
                to match the end of clip2, which increases the output length; default: False
 
-*channels* - list of channels of clip2 to mix in; default: None (all channels)
+*channels* - list of channels of clip2 to mix in; default: `None` (all channels)
 
-*overflow* - sample overflow handling; default: 'error' - see [explanation below](#overflow-handling)
+*overflow* - sample overflow handling; default: `'error'` - see [explanation below](#overflow-handling)
 
-*overflow_log* - sample overflow logging; default: 'once' - see [explanation below](#overflow-handling)
+*overflow_log* - sample overflow logging; default: `'once'` - see [explanation below](#overflow-handling)
 
 
 ## Normalize
@@ -300,23 +300,23 @@ Applies a gain to the input clip to match the desired normalized peak value.
 atools.Normalize(clip: vs.AudioNode,
                  peak: float = 1.0,
                  lower_only: bool = False,
-                 channels: list[int] = None,
+                 channels: list[int] | None = None,
                  overflow: str = 'error',
-                 overflow_log: str = 'once'
+                 overflow_log: str = 'once',
                  ) -> vs.AudioNode
 ```
 
 *clip* - input audio clip
 
-*peak* - normalized peak value to scale the audio to; default: 1.0
+*peak* - normalized peak value to scale the audio to; default: `1.0`
 
-*lower_only* - only reduce the volume to match the desired peak value; default: False
+*lower_only* - only reduce the volume to match the desired peak value; default: `False`
 
-*channels* - list of channels to normalize; default: None (all channels)
+*channels* - list of channels to normalize; default: `None` (all channels)
 
-*overflow* - sample overflow handling; default: 'error' - see [explanation below](#overflow-handling)
+*overflow* - sample overflow handling; default: `'error'` - see [explanation below](#overflow-handling)
 
-*overflow_log* - sample overflow logging; default: 'once' - see [explanation below](#overflow-handling)
+*overflow_log* - sample overflow logging; default: `'once'` - see [explanation below](#overflow-handling)
 
 
 ## SineTone
@@ -324,7 +324,7 @@ atools.Normalize(clip: vs.AudioNode,
 Create a constant beeping tone clip.
 
 ```python
-atools.SineTone(clip: vs.AudioNode = None,
+atools.SineTone(clip: vs.AudioNode | None = None,
                 samples: int = 10 * sample_rate
                 seconds: float = 10.0,
                 sample_rate: int = 44100,
@@ -333,7 +333,7 @@ atools.SineTone(clip: vs.AudioNode = None,
                 amp: float = 1.0,
                 channels: list[int] = [vs.FRONT_LEFT, vs.FRONT_RIGHT],
                 overflow: str = 'error',
-                overflow_log: str = 'once'
+                overflow_log: str = 'once',
                 ) -> vs.AudioNode
 ```
 
@@ -357,11 +357,11 @@ atools.SineTone(clip: vs.AudioNode = None,
 
 *amp* - amplitude of the sine tone
 
-*channels* - channels for the channel layout; default: [vs.FRONT_LEFT, vs.FRONT_RIGHT]
+*channels* - channels for the channel layout; default: `[vs.FRONT_LEFT, vs.FRONT_RIGHT]`
 
-*overflow* - sample overflow handling; default: 'error' - see [explanation below](#overflow-handling)
+*overflow* - sample overflow handling; default: `'error'` - see [explanation below](#overflow-handling)
 
-*overflow_log* - sample overflow logging; default: 'once' - see [explanation below](#overflow-handling)
+*overflow_log* - sample overflow logging; default: `'once'` - see [explanation below](#overflow-handling)
 
 
 ## Overflow handling
@@ -436,8 +436,8 @@ None
 
 
 ## Build from source
-Use cmake to configure your preferred build system and run it.  
-e.g. cmake with Ninja:
+Use CMake to configure your preferred build system and run it.  
+e.g. CMake with Ninja:
 ```sh
 cmake -G Ninja -B ./build-ninja -DCMAKE_BUILD_TYPE=Release
 
