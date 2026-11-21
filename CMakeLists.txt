@@ -101,6 +101,12 @@ target_compile_options(AudioTools
 )
 
 
+target_compile_definitions(AudioTools
+    PRIVATE
+        VS_USE_LATEST_API
+)
+
+
 if (WIN32)
     target_link_options(AudioTools
         PRIVATE
